@@ -4,8 +4,10 @@
 
 **Introduction**
 
-This project came up from the Microsoft Power BI challenge I saw on LinkedIn and immediately fell in love with the data. The data does not look like the regular production data I was familiar with, and this will widen my scope of data cleaning, DAX and visualization.
-Power BI Concepts applied
+This project came up from the Microsoft Power BI challenge I saw on LinkedIn and immediately fell in love with the data. The data does not look like the regular production data I was familiar with. Hence, it will widen my scope of data cleaning, DAX and visualization.
+
+**Power BI Concepts applied**
+
 1. Calculated Columns, Calendar table
 2. Data Modelling: Star Schema
 3. DAX measures
@@ -19,9 +21,9 @@ Power BI Concepts applied
 
 **Data Sourcing**
 
-I sourced the AdventureWorks2019.bak file and downloaded it as a .bak file. Afterwards, I loggedn my Microsoft SSMS 18, restored the downloaded file “AdventureWorks2019” from my device and imported it as a database into my server.  
+I sourced the AdventureWorks2019.bak file and downloaded it as a .bak file. Afterwards, I logged into Microsoft SSMS 18, restored the downloaded file “AdventureWorks2019” from my device and imported it as a database into my server.  
 
-The four tables needed for the challenge were then gotten used select statement into Power BI for cleaning, analysis and visualization. 
+The four tables needed for the challenge were then gotten using the "select" statement into Power BI for cleaning, analysis and visualization. 
 1.	Production.Product, 
 2.	Production.BillOfMaterials, 
 3.	Production.WorkOrder, and  
@@ -33,11 +35,12 @@ The four tables needed for the challenge were then gotten used select statement 
 **Data Cleaning**
 
 Much cleaning was not done on the dataset imported. However, the datatype was changed e.g. date fields are of data type, amount are of numbers etc.  Also, duplicates rows were removed and then applied and loaded. 
-From the Data view. 
+
+From the Data view;
 1.	Calculated columns were created to calculate the average TAT for the actual days and scheduled days of manufacturing products. Likewise for order routing days to reach location. 
 2.	List Variance from the standard cost was also calculated as
 List Price variance From Standard Cost = DIVIDE(('Production Product'[ListPrice]-'Production Product'[StandardCost]),'Production Product'[ListPrice])
-3.	The work stress was inferred from a two step calculated column to determine if the work finished earlier or later before the due date. 
+3.	The work stress was inferred from a two-step calculated column to determine if the work was finished earlier or later before the due date. 
 
 Work Order TAT = DATEDIFF('Production WorkOrder'[StartDate],'Production WorkOrder'[EndDate],DAY)
 
@@ -47,13 +50,14 @@ Work Stress = SWITCH(TRUE(),
                 'Production WorkOrder'[Work Order due Days] < 0 ,  "Finished after Due Date",
                 'Production WorkOrder'[Work Order due Days] >=0  ,  "Finished on/before Due Date")
 
+Other measures were created which are not included in here. you can also interact with the report using this link [Optimizing Production Performance in a Manufacturing Industry](https://app.fabric.microsoft.com/view?r=eyJrIjoiZDE0ZDhhZDktMDdjNi00Y2UyLTgzZjMtYWE3NjlkOTM2YTJmIiwidCI6IjNmNjRiY2NiLTI3MjItNDJlNS1iNWNhLTcxYjIwNjA0NWQ4NyJ9) 
+
 **Data Modelling**
 
 Automatically, power BI created the related tables which gave a star schema model. The product table is the dimension table. The work order table was connected to work order routing using workorderID, while product ID/Component ID joined the product and bill of materials table. Other relationships can be seen below. 
 
 ![image](https://github.com/Adesoyin/Product_Production-Project/assets/123065894/efca2547-cbb8-483a-8640-9ace7d3d19c3)
 
- 
 
 **Report Pages**
 
